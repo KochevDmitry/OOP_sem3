@@ -33,6 +33,13 @@ TEST(test_08, basic_test_set) {
     ASSERT_TRUE(replaceNthCharacter("hello my name is leonel", 1, 'l', 'p') == "heppo my name is peonep");
 }
 
+TEST(test_09, basic_test_set) { 
+    ASSERT_TRUE(replaceNthCharacter("", 2, 'l', 'p') == "");
+}
+
+TEST(test_10, basic_test_set) { 
+    ASSERT_TRUE(replaceNthCharacter("aaaa", 2, 'l', 'p') == "aaaa");
+}
 
 int main (int args, char **argv) {
     testing::InitGoogleTest(&args, argv);
