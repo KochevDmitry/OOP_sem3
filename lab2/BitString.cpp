@@ -6,6 +6,8 @@
         }
 
         BitString::BitString(int valueLength){
+            if(valueLength < 0)
+                throw std::logic_error("array length must be at least 0");
             length = valueLength;
             array = new unsigned char[length];
             for (int i = 0; i < length; i++)
@@ -13,28 +15,67 @@
         }
 
         BitString::BitString(int valueLength, unsigned char* newArray){
-            array = newArray;
+            if(valueLength < 0)
+                throw std::logic_error("array length must be at least 0");
+
+            if (newArray[valueLength] == '0' || newArray[valueLength] == '1')
+                throw std::logic_error("the entered length must be equal to the length of the array");
+
+            array = new unsigned char[valueLength];
             length = valueLength;
+            for (int i = 0; i < length; i++){
+                if (newArray[i] != '0' && newArray[i] != '1')
+                    throw std::logic_error("array cannot store anything other than '0' and '1'");
+                array[i] = newArray[i];
+            }
+        }
+
+        BitString::BitString(BitString& other){
+            array = new unsigned char[other.GetLength()];
+            length = other.GetLength();
+            unsigned char* arr = other.GetString();
+            for (int i = 0; i < length; i++)
+                array[i] = arr[i];
+            arr = nullptr;
         }
 
         BitString::~BitString() {
-            delete[] array;
-            array = nullptr;
+            if (length > 0 && array != nullptr){
+                delete[] array;
+                array = nullptr;
+            }
         }  
 
         void BitString::SetStringAndLength(int valueLength, unsigned char* newArray){
-            delete[] array;
-            array = newArray;
+            // delete[] array;
+            if(valueLength < 0)
+                throw std::logic_error("array length must be at least 0");
+
+            if (newArray[valueLength] == '0' || newArray[valueLength] == '1')
+                throw std::logic_error("the entered length must be equal to the length of the array");
+                
+            array = new unsigned char[valueLength];
             length = valueLength;
+            for (int i = 0; i < length; i++){
+                if (newArray[i] != '0' && newArray[i] != '1')
+                    throw std::logic_error("array cannot store anything other than '0' and '1'");
+                array[i] = newArray[i];
+            }
         }
 
         void BitString::SetBit(unsigned int index, unsigned char value){
-            if (index < length && (value == '0' || value == '1'))
-                array[index] = value;
+            if (value != '0' && value != '1')
+                    throw std::logic_error("array cannot store anything other than '0' and '1'");
+            if (index >= length)
+                throw std::logic_error("index is equal or greater than array size");
+            array[index] = value;
         }
 
         unsigned char* BitString::GetString(){
-            return array;
+            unsigned char* str = new unsigned char[length];
+            for (int i = 0; i < length; i++)
+                str[i] = array[i];
+            return str;
         }
 
         int BitString::GetLength(){
@@ -149,8 +190,15 @@
             return BitString(length, new_array);
         }
         
-        void BitString::Print() {
-            for (int i = 0; i < length; i++)
-                std::cout<<array[i]<<" ";
-            std::cout<<std::endl;
+        // void BitString::Print() {
+        //     for (int i = 0; i < length; i++)
+        //         std::cout<<array[i]<<" ";
+        //     std::cout<<std::endl;
+        // }
+
+        std::ostream &BitString::Print(std::ostream &os){
+            for (size_t i = 0; i < length; ++i)
+                os << array[i];
+            os << std::endl;
+            return os;
         }
