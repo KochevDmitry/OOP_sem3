@@ -37,19 +37,19 @@ double sum_area(FigureArray *strct) {
 
 // Figure* fg = &sqaure;
 
-Figure **rm_figure(FigureArray *strct, int index) {
-    Figure **new_arr = new Figure* [strct->capacity];
-    int flag = 0;
-    for (int i = 0; i < strct->size; i++) {
-        if (i == index) {
-            flag = 1;
-            continue;
-        }
-        new_arr[i - flag] = strct->arr[i];
-    }
-    delete [] strct->arr;
-    return new_arr;
-}
+// Figure **rm_figure(FigureArray *strct, int index) {
+//     Figure **new_arr = new Figure* [strct->capacity];
+//     int flag = 0;
+//     for (int i = 0; i < strct->size; i++) {
+//         if (i == index) {
+//             flag = 1;
+//             continue;
+//         }
+//         new_arr[i - flag] = strct->arr[i];
+//     }
+//     delete [] strct->arr;
+//     return new_arr;
+// }
 
 void rm_arr(FigureArray *strct) {
     strct->capacity = 0;
