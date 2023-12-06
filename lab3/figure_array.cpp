@@ -37,19 +37,20 @@ double sum_area(FigureArray *strct) {
 
 // Figure* fg = &sqaure;
 
-// Figure **rm_figure(FigureArray *strct, int index) {
-//     Figure **new_arr = new Figure* [strct->capacity];
-//     int flag = 0;
-//     for (int i = 0; i < strct->size; i++) {
-//         if (i == index) {
-//             flag = 1;
-//             continue;
-//         }
-//         new_arr[i - flag] = strct->arr[i];
-//     }
-//     delete [] strct->arr;
-//     return new_arr;
-// }
+void rm_figure(FigureArray *strct, int index) {
+    if (index < 0 || index >= strct->size) {
+        // Проверка на корректность индекса
+        std::cerr << "Error: Index out of bounds." << std::endl;
+        return;
+    }
+
+    for (int i = index; i < strct->size - 1; ++i) {
+        strct->arr[i] = strct->arr[i + 1];
+    }
+
+    strct->size--;
+}
+
 
 void rm_arr(FigureArray *strct) {
     strct->capacity = 0;
