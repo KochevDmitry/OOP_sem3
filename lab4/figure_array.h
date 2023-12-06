@@ -7,7 +7,7 @@
 
 template<Number T>
 struct FigureArray{
-    std::shared_ptr<Figure<T>>* arr;
+    std::shared_ptr<Figure<T>> * arr;
     int size;
     int capacity;
 };
@@ -32,25 +32,41 @@ double sum_area(FigureArray<T>* strct) {
 
 template <Number T>
 void increase_size(FigureArray<T>* strct) {
-    std::shared_ptr<Figure<T>[]> new_arr(new Figure<T>[strct->capacity + 10], std::default_delete<Figure<T>[]>{});
+    std::shared_ptr<Figure<T>> * new_arr =  new std::shared_ptr<Figure<T>>[strct->capacity + 10];
     for (size_t i = 0; i < strct->size; i++) {
         new_arr[i] = strct->arr[i];
     }
+    strct->arr = new_arr;
     strct->capacity += 10;
 }
 
-template <Number T>
-void add_figure(FigureArray<T>* strct, std::shared_ptr<Figure<T>> figure) {
+template <Number T, template <typename> class T2>
+void add_figure(FigureArray<T>* strct, std::shared_ptr<T2<T>> figure) {
     if (strct->size == strct->capacity) {
         increase_size(strct);
     }
-    strct->arr[strct->size] = &(*figure);
+    strct->arr[strct->size] = figure;
     strct->size++;
 }
 
 template <Number T>
+void rm_figure(FigureArray<T>* strct, int index) {
+    if (index < 0 || index >= strct->size) {
+        // Проверка на корректность индекса
+        std::cerr << "Error: Index out of bounds." << std::endl;
+        return;
+    }
+
+    for (int i = index; i < strct->size - 1; ++i) {
+        strct->arr[i] = strct->arr[i + 1];
+    }
+
+    strct->size--;
+}
+
+template <Number T>
 void rm_arr(FigureArray<T>* strct) {
-// Умные указатели сами управляют памятью, не нужно явно удалять
+
     strct->size = 0;
     strct->capacity = 0;
     delete strct;
