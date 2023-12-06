@@ -53,7 +53,7 @@ template <Number T>
 void rm_figure(FigureArray<T>* strct, int index) {
     if (index < 0 || index >= strct->size) {
         // Проверка на корректность индекса
-        std::cerr << "Error: Index out of bounds." << std::endl;
+        throw std::logic_error("Index out of range");
         return;
     }
 
