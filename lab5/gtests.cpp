@@ -46,6 +46,16 @@ TEST(test_03, basic_test_set) {
     ASSERT_TRUE(c);
 }
 
+TEST(test_04, basic_test_set) {
+    LinkedList<int, AllocatorList<int>> my_list;
+    my_list.push_back(1);
+    LinkedList<int, AllocatorList<int> >::Iterator it(my_list.begin());
+    bool c = false;
+    if( *it == 1)
+        c = true;
+    ASSERT_TRUE(c);
+}
+
 
 
 int main (int args, char **argv) {
