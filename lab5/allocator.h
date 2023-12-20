@@ -70,7 +70,8 @@ public:
             _free_blocks.push_back(pointer);
         else {
             // Указатель не входит в область выделенной памяти
-            std::cerr << "allocator: Trying to deallocate memory not allocated by this allocator." << std::endl;
+            // std::cerr << "allocator: Trying to deallocate memory not allocated by this allocator." << std::endl;
+            throw std::invalid_argument("allocator: Trying to deallocate memory not allocated by this allocator.");
         }
     }
 
