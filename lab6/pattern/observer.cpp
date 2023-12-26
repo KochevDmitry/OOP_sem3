@@ -33,11 +33,8 @@ void FileObserver::on_fight(NPC& attacker, NPC& defender, bool win){
         else{
             std::cerr << "Observer's file opening error!" << std::endl;
         }
-    }
-        
+    }    
 }
-
-
 
 std::shared_ptr<Observer> ScreenObserver::get(){
     static ScreenObserver instance;
