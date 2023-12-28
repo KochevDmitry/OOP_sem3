@@ -129,12 +129,11 @@ public:
 
 int main()
 {
-    set_t array; // монстры
+    set_t array; 
 
     const int MAX_X{100};
     const int MAX_Y{100};
 
-    // Гененрируем начальное распределение монстров
     std::cout << "Generating ..." << std::endl;
     for (size_t i = 0; i < 50; ++i)
         array.insert(NPCFactory::factory(NpcType(std::rand() % 3), Coords(std::rand() % MAX_X, std::rand() % MAX_Y)));
